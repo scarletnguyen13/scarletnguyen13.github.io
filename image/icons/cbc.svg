@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="438" height="438" viewBox="-219 -219 438 438">
+	<title>CBC logo</title>
+	<g fill="#aaa">
+		<circle r="78"/>
+		<g id="h">
+			<path id="q" d="m78 90a78 78 0 0 1-156 0zm12 0h74a74 74 0 0 1-74 74zm-22.45 90a78 78 0 0 1-135.1 0z"/>
+			<use xlink:href="#q" transform="rotate(90)"/>
+		</g>
+		<use xlink:href="#h" transform="rotate(180)"/>
+	</g>
+</svg>
