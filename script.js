@@ -151,17 +151,19 @@ const data = {
 	}
 };
 
+let isScrolled = false;
+
 document.querySelectorAll(".__range-step").forEach(function(ctrl) {
 	var el = ctrl.querySelector('input');        
 	var output = ctrl.querySelector('output'); 
-	var newPoint, newPlace, offset;
-	el.oninput =function(){ 
+	el.oninput = function() { 
 		// colorize step options
 		ctrl.querySelectorAll("option").forEach(function(opt) {
-			if(opt.value<=el.valueAsNumber)                
+			if (opt.value <= el.valueAsNumber) {
 				opt.style.backgroundColor = 'red';
-			else
+			} else {
 				opt.style.backgroundColor = '#aaa';
+			}
 		});           
 		// colorize before and after
 		var valPercent = (el.valueAsNumber  - parseInt(el.min)) / (parseInt(el.max) - parseInt(el.min));            
@@ -196,6 +198,7 @@ window.onresize = function(){
 function createDOM(element, content, parent, style) {
 	const el = document.createElement(element);
 	const c = document.createTextNode(content);
+
 	el.appendChild(c);
 
 	if (style !== null) {
@@ -213,7 +216,7 @@ function pickContent(year) {
 	const CONTENT_STYLE = 'color: #666666;';
 
 	const img = document.createElement("img");
-	img.style = "max-width: 100%; height: auto; border-radius: 50px; border: 10px double #d14d4d;"
+	img.style = "max-width: 100%; height: auto; border-radius: 30px"
 	const one = document.getElementById("one");
 
 	switch(year) {
@@ -325,7 +328,8 @@ function pickContent(year) {
 
 			createDOM("h2", "UBC COURSES", "two", SECTION_STYLE);
 			data[2020].courses.map(c => {
-				createDOM("h5", c, "two", CONTENT_STYLE);
+				createDOM("h3", c.name, "two", TITLE_STYLE);
+				createDOM("h5", c.description, "two", CONTENT_STYLE);
 				createDOM("br", "", "two", null);
 			})
 
