@@ -223,7 +223,8 @@ body, html {
 .contact-container {
   width: 100%;
   vertical-align: middle;
-  text-align: center;
+	text-align: center;
+	margin-top: 50px;
 }
 
 .icons {
@@ -236,11 +237,13 @@ body, html {
 	width: 40px;
 	height: 40px;
 	margin: 10px;
+	border-radius: 5px;
 }
 
 .svg {
 	width: 40px;
 	height: 40px;
+	border-radius: 5px;
 	margin: 10px;
 	filter: invert(75%) sepia(0%) saturate(11%) hue-rotate(137deg) brightness(90%) contrast(90%);
 }
