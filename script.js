@@ -272,6 +272,7 @@ function pickContent(year) {
 			createExperienceDOM(data[2017]);
 			createBreakDOM();
 			img.src = data[2017].experience.img;
+			one.appendChild(img);
 			createAwardDOM(data[2017]);
 			createBreakDOM();
 			createSimpleSectionDOM("SELF-TAUGHT COURSES", data[2017].courses);
@@ -281,6 +282,7 @@ function pickContent(year) {
 			createExperienceDOM(data[2018]);
 			createBreakDOM();
 			img.src = data[2018].experience.img;
+			one.appendChild(img);
 			createAwardDOM(data[2018]);
 		}
 		break;
@@ -288,6 +290,7 @@ function pickContent(year) {
 			createExperienceDOM(data[2019]);
 			createBreakDOM();
 			img.src = data[2019].experience.img;
+			one.appendChild(img);
 			createEductionDOM();
 			createBreakDOM();
 			createDOM("h2", "SCHOLARSHIPS", "two", SECTION_STYLE);
@@ -307,6 +310,4 @@ function pickContent(year) {
     break;
   	default: break;
 	}
-
-	one.appendChild(img);
 }
