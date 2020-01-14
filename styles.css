@@ -35,6 +35,10 @@ body, html {
 {
   outline: none;
 	-webkit-appearance: none;
+	-moz-appearance:    none;
+	-ms-appearance:    none;
+	-o-appearance:    none;
+  appearance:         none;
 	background-color: #aaa;
 	height: 3px;
 	width: 100%;
@@ -43,6 +47,10 @@ body, html {
 .range input::-webkit-slider-thumb
 {
 	-webkit-appearance: none;
+	-moz-appearance:    none;
+	-ms-appearance:    none;
+	-o-appearance:    none;
+  appearance:         none;
 	width: 20px;
 	height: 20px;
 	background-color: red;
@@ -53,6 +61,10 @@ body, html {
 .range input::-moz-range-thumb
 {
 	-webkit-appearance: none;
+	-moz-appearance:    none;
+	-ms-appearance:    none;
+	-o-appearance:    none;
+  appearance:         none;
 	width: 20px;
 	height: 20px;
 	background-color: red;
@@ -63,6 +75,10 @@ body, html {
 .range input::-ms-thumb
 {
 	-webkit-appearance: none;
+	-moz-appearance:    none;
+	-ms-appearance:    none;
+	-o-appearance:    none;
+  appearance:         none;
 	width: 20px;
 	height: 20px;
 	background-color: red;
@@ -84,6 +100,13 @@ body, html {
 .range-step input::-moz-range-thumb
 {
 	background: transparent;
+	border: 0;
+}
+.range-step input::-moz-focus-outer {
+	border: 0;
+}
+.range-step input::-moz-focus-inner {
+	border: 0;
 }
 .range-step input::-ms-thumb
 {
@@ -103,6 +126,16 @@ body, html {
 	/* disable click events */
 	pointer-events:none;  
 }
+
+@-moz-document url-prefix() {
+	.range-step datalist {
+		bottom: 23px;
+	}
+	.range-step datalist option {
+		color: transparent;
+	}
+}
+
 .range-step datalist option {
 	width: 10px;
 	height: 10px;
