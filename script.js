@@ -10,7 +10,8 @@ const data = {
           ">> Contacted to more than 100 companies in Canada to advertise the organization’s missions and upcoming events",
           ">> Compiled a full list of more than 200 worldwide universities’ contact and quality content resources",
           ">> Managed simultaneously 24 Picatic event pages and volunteers for those events"
-        ]
+				],
+				img: "./image/witworld.jpeg"
       }
 		,
 		awards: [
@@ -59,7 +60,8 @@ const data = {
 				">> Threaded user data parameters and unified data storage among objects in GraphQL",
 				">> Developed a new repo managing the user’s data and API calls to SCUM (Social Communication Service)",
 				">> Performance Improvement: implemented the Proxy pattern and two types of cache (in-memory and decentralized)"
-			]
+			],
+			img: "./image/hootsuite1.jpg"
 		},
 		awards: [
 			{
@@ -106,7 +108,8 @@ const data = {
 				">> Database Improvement: restructured the double-storing message data and saved ~125-150 GB of memory in the database",
 				">> Solved 3 customer-impact bugs that significantly improved the SLOs by over 20%",
 				">> Refactored 714 performance and code style errors in GraphQL in the duration of my last 2 days"
-			]
+			],
+			img: "./image/hootsuite2.jpg"
 		},
 		education: {
 			school: "University of British Columbia (UBC)",
@@ -151,50 +154,57 @@ const data = {
 	}
 };
 
-let isScrolled = false;
+const SECTION_STYLE = 'color: #9e0b00; font-weight: 1000;'; 
+const TITLE_STYLE = 'color: #d14d4d; font-weight: 700;';
+const DATE_STYLE = 'color: #4d4d4d; font-style: italic;';
+const CONTENT_STYLE = 'color: #666666;';
+const TIMELINE_STYLE = 'background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(';
+const IMG_STYLE = 'max-width: 100%; height: auto; border-radius: 30px';
 
-document.querySelectorAll(".__range-step").forEach(function(ctrl) {
-	var el = ctrl.querySelector('input');        
-	var output = ctrl.querySelector('output'); 
-	el.oninput = function() { 
-		// colorize step options
-		ctrl.querySelectorAll("option").forEach(function(opt) {
-			if (opt.value <= el.valueAsNumber) {
-				opt.style.backgroundColor = 'red';
-			} else {
-				opt.style.backgroundColor = '#aaa';
-			}
-		});           
-		// colorize before and after
-		var valPercent = (el.valueAsNumber  - parseInt(el.min)) / (parseInt(el.max) - parseInt(el.min));            
-		var style = 'background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop('+
-		valPercent+', red), color-stop('+
-		valPercent+', #aaa));';
-		el.style = style;
-
-		// Popup
-    if((' ' + ctrl.className + ' ').indexOf(' ' + '__range-step-popup' + ' ') > -1)
-    {
-      var selectedOpt=ctrl.querySelector('option[value="'+el.value+'"]');
-			output.style.left = "50%"; 
-			output.style.left = ((selectedOpt.offsetLeft + selectedOpt.offsetWidth/2) - output.offsetWidth/2) + 'px';
-
-			document.getElementById("one").innerHTML = "";
-			document.getElementById("two").innerHTML = "";
-
-			pickContent(selectedOpt.text);
-    }           
+document.querySelectorAll(".range-step").forEach(function(step) {
+	var input = step.querySelector('input');        
+	input.oninput = function() { 
+		colorizeTimeline(step, input.valueAsNumber);     
+		colorizeBeforeNAfter(input);
+		createPopup(step, input);
 	};
-	el.oninput();    
+	input.oninput();    
 });
 
 window.onresize = function(){
-	document.querySelectorAll(".__range").forEach(function(ctrl) {
-		var el = ctrl.querySelector('input');    
-		el.oninput();    
+	document.querySelectorAll(".range").forEach(function(step) {
+		var input = step.querySelector('input');    
+		input.oninput();    
 	});
 };
 
+function colorizeTimeline(step, inputValue) {
+	step.querySelectorAll("option").forEach(option => {
+		option.style.backgroundColor = option.value <= inputValue ? 'red' : '#aaa';
+	});
+}
+
+function colorizeBeforeNAfter(input) {
+	var valPercent = (input.valueAsNumber  - parseInt(input.min)) / (parseInt(input.max) - parseInt(input.min));            
+	var style = TIMELINE_STYLE + valPercent + ', red), color-stop(' + valPercent + ', #aaa));';
+	input.style = style;
+}
+
+function createPopup(step, input) {
+	const output = step.querySelector('output'); 
+
+	if((' ' + step.className + ' ').indexOf(' ' + 'range-step-popup' + ' ') > -1) {
+		var selectedOpt = step.querySelector('option[value="' + input.value + '"]');
+		output.style.left = "50%"; 
+		output.style.left = ((selectedOpt.offsetLeft + selectedOpt.offsetWidth/2) - output.offsetWidth/2) + 'px';
+
+		document.getElementById("one").innerHTML = "";
+		document.getElementById("two").innerHTML = "";
+
+		pickContent(selectedOpt.text);
+	}   
+}
+ 
 function createDOM(element, content, parent, style) {
 	const el = document.createElement(element);
 	const c = document.createTextNode(content);
@@ -209,132 +219,94 @@ function createDOM(element, content, parent, style) {
 	p.appendChild(el);
 }
 
-function pickContent(year) {
-	const SECTION_STYLE = 'color: #9e0b00; font-weight: 1000;'; 
-	const TITLE_STYLE = 'color: #d14d4d; font-weight: 700;';
-	const DATE_STYLE = 'color: #4d4d4d; font-style: italic;';
-	const CONTENT_STYLE = 'color: #666666;';
+function createExperienceDOM(yearData) {
+	createDOM("h2", "EXPERIENCE", "one", SECTION_STYLE);
+	createDOM("h3", yearData.experience.title, "one", TITLE_STYLE);
+	createDOM("h4", yearData.experience.date, "one", DATE_STYLE);
+	yearData.experience.content.map(str => {
+		createDOM("h5", str, "one", CONTENT_STYLE);
+	})
+}
 
+function createAwardDOM(yearData) {
+	createDOM("h2", "AWARDS", "two", SECTION_STYLE);
+	yearData.awards.map(a => {
+		createDOM("h3", a.title, "two", TITLE_STYLE);
+		createDOM("h4", a.date, "two", DATE_STYLE);
+		a.content.map(c => {
+			createDOM("h5", c, "two", CONTENT_STYLE);
+		})
+		createDOM("br", "", "two", null);
+	})
+}
+
+function createEductionDOM() {
+	createDOM("h2", "EDUCATION", "two", SECTION_STYLE);
+	createDOM("h3", data[2019].education.school, "two", TITLE_STYLE);
+	createDOM("h4", data[2019].education.grad_year, "two", DATE_STYLE);
+	createDOM("h5", data[2019].education.degree, "two", CONTENT_STYLE);
+	createDOM("h5", data[2019].education.major, "two", CONTENT_STYLE);
+}
+
+function createSimpleSectionDOM(content, data) {
+	createDOM("h2", content, "two", SECTION_STYLE);
+	data.map(c => {
+		createDOM("h3", c.name, "two", TITLE_STYLE);
+		createDOM("h5", c.description, "two", CONTENT_STYLE);
+		createDOM("br", "", "two", null);
+	})
+}
+
+function createBreakDOM() {
+	createDOM("br", "", "one", null);
+	createDOM("br", "", "one", null);
+}
+
+function pickContent(year) {
 	const img = document.createElement("img");
-	img.style = "max-width: 100%; height: auto; border-radius: 30px"
+	img.style = IMG_STYLE;
 	const one = document.getElementById("one");
 
 	switch(year) {
 		case "2017": {
-			createDOM("h2", "EXPERIENCE", "one", SECTION_STYLE);
-			createDOM("h3", data[2017].experience.title, "one", TITLE_STYLE);
-			createDOM("h4", data[2017].experience.date, "one", DATE_STYLE);
-			data[2017].experience.content.map(str => {
-				createDOM("h5", str, "one", CONTENT_STYLE);
-			})
-
-			createDOM("br", "", "one", null);
-			createDOM("br", "", "one", null);
-
-			img.src = "./image/witworld.jpeg";
-			one.appendChild(img);
-
-			createDOM("h2", "AWARDS", "two", SECTION_STYLE);
-			data[2017].awards.map(a => {
-				createDOM("h3", a.title, "two", TITLE_STYLE);
-				createDOM("h4", a.date, "two", DATE_STYLE);
-				a.content.map(c => {
-					createDOM("h5", c, "two", CONTENT_STYLE);
-				})
-				createDOM("br", "", "two", null);
-			})
-
-			createDOM("br", "", "two", null);
-			createDOM("br", "", "two", null);
-
-			createDOM("h2", "SELF-TAUGHT COURSES", "two", SECTION_STYLE);
-			data[2017].courses.map(c => {
-				createDOM("h3", c.name, "two", TITLE_STYLE);
-				createDOM("h5", c.description, "two", CONTENT_STYLE);
-			})
+			createExperienceDOM(data[2017]);
+			createBreakDOM();
+			img.src = data[2017].experience.img;
+			createAwardDOM(data[2017]);
+			createBreakDOM();
+			createSimpleSectionDOM("SELF-TAUGHT COURSES", data[2017].courses);
 		}
 		break;
 		case "2018": {
-			createDOM("h2", "EXPERIENCE", "one", SECTION_STYLE);
-			createDOM("h3", data[2018].experience.title, "one", TITLE_STYLE);
-			createDOM("h4", data[2018].experience.date, "one", DATE_STYLE);
-			data[2018].experience.content.map(str => {
-				createDOM("h5", str, "one", CONTENT_STYLE);
-			})
-
-			createDOM("br", "", "one", null);
-			createDOM("br", "", "one", null);
-
-			img.src = "./image/hootsuite1.jpg";
-			one.appendChild(img);
-
-			createDOM("h2", "AWARDS", "two", SECTION_STYLE);
-			data[2018].awards.map(a => {
-				createDOM("h3", a.title, "two", TITLE_STYLE);
-				createDOM("h4", a.date, "two", DATE_STYLE);
-				a.content.map(c => {
-					createDOM("h5", c, "two", CONTENT_STYLE);
-				})
-				createDOM("br", "", "two", null);
-			})
+			createExperienceDOM(data[2018]);
+			createBreakDOM();
+			img.src = data[2018].experience.img;
+			createAwardDOM(data[2018]);
 		}
 		break;
 		case "2019": {
-			createDOM("h2", "EXPERIENCE", "one", SECTION_STYLE);
-			createDOM("h3", data[2019].experience.title, "one", TITLE_STYLE);
-			createDOM("h4", data[2019].experience.date, "one", DATE_STYLE);
-			data[2019].experience.content.map(str => {
-				createDOM("h5", str, "one", CONTENT_STYLE);
-			})
-
-			createDOM("br", "", "one", null);
-			createDOM("br", "", "one", null);
-
-			img.src = "./image/hootsuite2.jpg";
-			one.appendChild(img);
-
-			createDOM("h2", "EDUCATION", "two", SECTION_STYLE);
-			createDOM("h3", data[2019].education.school, "two", TITLE_STYLE);
-			createDOM("h4", data[2019].education.grad_year, "two", DATE_STYLE);
-			createDOM("h5", data[2019].education.degree, "two", CONTENT_STYLE);
-			createDOM("h5", data[2019].education.major, "two", CONTENT_STYLE);
-
-			createDOM("br", "", "two", null);
-			createDOM("br", "", "two", null);
-
+			createExperienceDOM(data[2019]);
+			createBreakDOM();
+			img.src = data[2019].experience.img;
+			createEductionDOM();
+			createBreakDOM();
 			createDOM("h2", "SCHOLARSHIPS", "two", SECTION_STYLE);
+
 			data[2019].scholarships.map(s => {
 				createDOM("h5", s, "two", CONTENT_STYLE);
 			})
-
-			createDOM("br", "", "two", null);
-			createDOM("br", "", "two", null);
-
-			createDOM("h2", "CLUBS", "two", SECTION_STYLE);
-			data[2019].clubs.map(c => {
-				createDOM("h3", c.name, "two", TITLE_STYLE);
-				createDOM("h5", c.description, "two", CONTENT_STYLE);
-				createDOM("br", "", "two", null);
-			})
+			
+			createBreakDOM();
+			createSimpleSectionDOM("CLUBS", data[2019].clubs);
 		}
 		break;
 		case "2020": {
-			createDOM("h2", "EXPERIENCE", "one", SECTION_STYLE);
-			createDOM("h3", data[2020].experience.title, "one", TITLE_STYLE);
-			createDOM("h4", data[2020].experience.date, "one", DATE_STYLE);
-			data[2020].experience.content.map(str => {
-				createDOM("h5", str, "one", CONTENT_STYLE);
-			})
-
-			createDOM("h2", "UBC COURSES", "two", SECTION_STYLE);
-			data[2020].courses.map(c => {
-				createDOM("h3", c.name, "two", TITLE_STYLE);
-				createDOM("h5", c.description, "two", CONTENT_STYLE);
-				createDOM("br", "", "two", null);
-			})
-
+			createExperienceDOM(data[2020]);
+			createSimpleSectionDOM("UBC COURSES", data[2020].courses);
 		}
     break;
   	default: break;
 	}
+
+	one.appendChild(img);
 }
