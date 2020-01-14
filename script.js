@@ -11,7 +11,7 @@ const data = {
           ">> Compiled a full list of more than 200 worldwide universities’ contact and quality content resources",
           ">> Managed simultaneously 24 Picatic event pages and volunteers for those events"
 				],
-				img: "./image/witworld.jpeg"
+				img: "./image/experiences/witworld.jpeg"
       }
 		,
 		awards: [
@@ -61,7 +61,7 @@ const data = {
 				">> Developed a new repo managing the user’s data and API calls to SCUM (Social Communication Service)",
 				">> Performance Improvement: implemented the Proxy pattern and two types of cache (in-memory and decentralized)"
 			],
-			img: "./image/hootsuite1.jpg"
+			img: "./image/experiences/hootsuite1.jpg"
 		},
 		awards: [
 			{
@@ -109,7 +109,7 @@ const data = {
 				">> Solved 3 customer-impact bugs that significantly improved the SLOs by over 20%",
 				">> Refactored 714 performance and code style errors in GraphQL in the duration of my last 2 days"
 			],
-			img: "./image/hootsuite2.jpg"
+			img: "./image/experiences/hootsuite2.jpg"
 		},
 		education: {
 			school: "University of British Columbia (UBC)",
@@ -140,7 +140,7 @@ const data = {
 				">> Team: Firebase Backend @Waterloo, CA",
 				">> TBA"
 			],
-			img: "./image/google.jpeg"
+			img: "./image/experiences/google.jpeg"
 		},
 		courses: [
 			{
@@ -180,14 +180,17 @@ window.onresize = function(){
 };
 
 function colorizeTimeline(step, inputValue) {
-	step.querySelectorAll("option").forEach(option => {
-		option.style.backgroundColor = option.value <= inputValue ? 'red' : '#aaa';
+	step.querySelectorAll("li").forEach(li => {
+		li.style.backgroundColor = li.value <= inputValue ? 'red' : '#aaa';
 	});
 }
 
 function colorizeBeforeNAfter(input) {
-	var valPercent = (input.valueAsNumber  - parseInt(input.min)) / (parseInt(input.max) - parseInt(input.min));            
+	var valPercent = (input.valueAsNumber  - parseInt(input.min)) / (parseInt(input.max) - parseInt(input.min));  
+	        
+
 	var style = TIMELINE_STYLE + valPercent + ', red), color-stop(' + valPercent + ', #aaa));';
+
 	input.style = style;
 }
 
@@ -195,14 +198,14 @@ function createPopup(step, input) {
 	const output = step.querySelector('output'); 
 
 	if((' ' + step.className + ' ').indexOf(' ' + 'range-step-popup' + ' ') > -1) {
-		var selectedOpt = step.querySelector('option[value="' + input.value + '"]');
+		var selectedOpt = step.querySelector('li[value="' + input.value + '"]');
 		output.style.left = "50%"; 
 		output.style.left = ((selectedOpt.offsetLeft + selectedOpt.offsetWidth/2) - output.offsetWidth/2) + 'px';
 
 		document.getElementById("one").innerHTML = "";
 		document.getElementById("two").innerHTML = "";
 
-		pickContent(selectedOpt.text);
+		pickContent(input.value);
 	}   
 }
  
