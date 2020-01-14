@@ -220,6 +220,18 @@ body, html {
 	}
 }
 
+@media screen and (max-width: 600px) {
+  .activities { 
+    display: block;
+	}
+	#two {
+		margin-top: 200px,
+	}
+	.about-container {
+    padding: 0px 10px 10px 10px;
+}
+}
+
 .contact-container {
   width: 100%;
   vertical-align: middle;
