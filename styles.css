@@ -199,6 +199,12 @@ body, html {
 	vertical-align: middle;
 }
 
+.svg-light {
+	width: 40px;
+	height: 40px;
+	margin: 10px;
+}
+
 .svg {
 	width: 40px;
 	height: 40px;
@@ -206,7 +212,7 @@ body, html {
 	filter: invert(75%) sepia(0%) saturate(11%) hue-rotate(137deg) brightness(90%) contrast(90%);
 }
 
-.svg:hover {
+.svg:hover, .svg-light:hover{
 	filter: invert(50%) sepia(10%) saturate(5065%) hue-rotate(320deg) brightness(85%) contrast(91%);
 }
 

@@ -139,7 +139,8 @@ const data = {
 			content: [
 				">> Team: Firebase Backend @Waterloo, CA",
 				">> TBA"
-			]
+			],
+			img: "./image/google.jpeg"
 		},
 		courses: [
 			{
@@ -257,9 +258,9 @@ function createSimpleSectionDOM(content, data) {
 	})
 }
 
-function createBreakDOM() {
-	createDOM("br", "", "one", null);
-	createDOM("br", "", "one", null);
+function createBreakDOM(el) {
+	createDOM("br", "", el, null);
+	createDOM("br", "", el, null);
 }
 
 function pickContent(year) {
@@ -270,44 +271,59 @@ function pickContent(year) {
 	switch(year) {
 		case "2017": {
 			createExperienceDOM(data[2017]);
-			createBreakDOM();
+
+			createBreakDOM("one");
+
 			img.src = data[2017].experience.img;
-			one.appendChild(img);
+
 			createAwardDOM(data[2017]);
-			createBreakDOM();
+
+			createBreakDOM("two");
+
 			createSimpleSectionDOM("SELF-TAUGHT COURSES", data[2017].courses);
 		}
 		break;
 		case "2018": {
 			createExperienceDOM(data[2018]);
-			createBreakDOM();
+
+			createBreakDOM("one");
+
 			img.src = data[2018].experience.img;
-			one.appendChild(img);
+
 			createAwardDOM(data[2018]);
 		}
 		break;
 		case "2019": {
 			createExperienceDOM(data[2019]);
-			createBreakDOM();
-			img.src = data[2019].experience.img;
-			one.appendChild(img);
-			createEductionDOM();
-			createBreakDOM();
-			createDOM("h2", "SCHOLARSHIPS", "two", SECTION_STYLE);
 
+			createBreakDOM("one");
+
+			img.src = data[2019].experience.img;
+
+			createEductionDOM();
+
+			createBreakDOM("two");
+
+			createDOM("h2", "SCHOLARSHIPS", "two", SECTION_STYLE);
 			data[2019].scholarships.map(s => {
 				createDOM("h5", s, "two", CONTENT_STYLE);
 			})
-			
-			createBreakDOM();
+
+			createBreakDOM("two");
+
 			createSimpleSectionDOM("CLUBS", data[2019].clubs);
 		}
 		break;
 		case "2020": {
 			createExperienceDOM(data[2020]);
+			createBreakDOM("one");
+
+			img.src = data[2020].experience.img;
 			createSimpleSectionDOM("UBC COURSES", data[2020].courses);
 		}
     break;
   	default: break;
 	}
+
+	one.appendChild(img);
 }
