@@ -242,6 +242,10 @@ body, html {
 	.about-container {
     padding: 0px;
 	}
+	text {
+		font-size: 15px;
+		text-align: left;
+	}
 }
 
 .contact-container {
