@@ -139,12 +139,12 @@ const data = {
 			content: [
 				">> Deployed to Google Cloud Platform an interactive web app that performs language analysis on a large-scale database (Firestore) of political advertisement data and display visualizations",
 				">> Parallelized and optimized the scraping process of 500,000 advertisement contents, which saved more than 120 hours of work overall",
-				"Implemented a search engine using Algolia Search Engine and Cloud Functions in Java",
-				"Researched big data and generated visualizations with React and Victory.js",
-				"Built a sentiment analysis server in Flask (Python) that provides a Sentiment Analysis API that allows users to create, analyze and compare custom advertisement with similar results in the past",
-				"Led and guided 2 other interns through several new technologies during the internship, including React, Microservice concepts, Test Driven Development approach, and SCRUM practices",
-				"Wrote 3 design documentation for both individual and group project plannings",
-				"Designed and implemented a personal portfolio web app with complex microservice architecture such as Authentication and live-chat with Socket.IO from scratch"
+				">> Implemented a search engine using Algolia Search Engine and Cloud Functions in Java",
+				">> Researched big data and generated visualizations with React and Victory.js",
+				">> Built a sentiment analysis server in Flask (Python) that provides a Sentiment Analysis API that allows users to create, analyze and compare custom advertisement with similar results in the past",
+				">> Led and guided 2 other interns through several new technologies during the internship, including React, Microservice concepts, Test Driven Development approach, and SCRUM practices",
+				">> Wrote 3 design documentation for both individual and group project plannings",
+				">> Designed and implemented a personal portfolio web app with complex microservice architecture such as Authentication and live-chat with Socket.IO from scratch"
 			],
 			img: "./image/experiences/google.jpg"
 		},
